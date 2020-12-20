@@ -38,44 +38,16 @@ Make sure that you have **Python 3.5+** and **pip** installed. We recommend inst
 ```
 git clone https://github.com/datamllab/rlcard.git
 cd rlcard
-pip install -e .
+pip3 install -e .
 ```
-Alternatively, you can install the latest stable version with:
+This project needs a tensorflow version between 1.14 and 2.0. Tensorflow 1.15 is recommended.
 ```
-pip install rlcard
+pip3 install tensorflow==1.15
 ```
-The default installation will only include the card environments. To use Tensorflow implementation of the example algorithms, install the supported verison of Tensorflow with:
-```
-pip install rlcard[tensorflow]
-```
-To try PyTorch implementations, please run: 
-```
-pip install rlcard[torch]
-```
-If you meet any problems when installing PyTorch with the command above, you may follow the instructions on [PyTorch official website](https://pytorch.org/get-started/locally/) to manually install PyTorch.
-
-We also provide [**conda** installation method](https://anaconda.org/toubun/rlcard):
-
-```
-conda install -c toubun rlcard
-```
-
-Conda installation only provides the card environments, you need to manually install Tensorflow or Pytorch on your demands.
 
 ## Examples
-Please refer to [examples/](examples). A **short example** is as below.
-
-```python
-import rlcard
-from rlcard.agents import RandomAgent
-
-env = rlcard.make('blackjack')
-env.set_agents([RandomAgent(action_num=env.action_num)])
-
-trajectories, payoffs = env.run()
-```
-
-We also recommend the following **toy examples** in Python.
+Please refer to [examples/](examples).
+**Toy examples** in Python.
 
 *   [Playing with random agents](docs/toy-examples.md#playing-with-random-agents)
 *   [Deep-Q learning on Blackjack](docs/toy-examples.md#deep-q-learning-on-blackjack)
@@ -84,44 +56,38 @@ We also recommend the following **toy examples** in Python.
 *   [Having fun with pretrained Leduc model](docs/toy-examples.md#having-fun-with-pretrained-leduc-model)
 *   [Leduc Hold'em as single-agent environment](docs/toy-examples.md#leduc-holdem-as-single-agent-environment)
 
-R examples can be found [here](docs/toy-examples-r.md).
-
 ## Demo
-Run `examples/leduc_holdem_human.py` to play with the pre-trained Leduc Hold'em model. Leduc Hold'em is a simplified version of Texas Hold'em. Rules can be found [here](docs/games.md#leduc-holdem).
+Run `examples/limit_holdem_dqn_play.py` to play with the pre-trained Limit Hold'em model.
 
 ```
->> Leduc Hold'em pre-trained model
-
->> Start a new game!
->> Agent 1 chooses raise
+>> Start a new game
 
 =============== Community Card ===============
-┌─────────┐
-│░░░░░░░░░│
-│░░░░░░░░░│
-│░░░░░░░░░│
-│░░░░░░░░░│
-│░░░░░░░░░│
-│░░░░░░░░░│
-│░░░░░░░░░│
-└─────────┘
+
+
+
+
+
+
+
+
+
 ===============   Your Hand    ===============
-┌─────────┐
-│J        │
-│         │
-│         │
-│    ♥    │
-│         │
-│         │
-│        J│
-└─────────┘
+┌─────────┐   ┌─────────┐
+│7        │   │A        │
+│         │   │         │
+│         │   │         │
+│    ♥    │   │    ♥    │
+│         │   │         │
+│         │   │         │
+│        7│   │        A│
+└─────────┘   └─────────┘
 ===============     Chips      ===============
 Yours:   +
-Agent 1: +++
++++
 =========== Actions You Can Choose ===========
 0: call, 1: raise, 2: fold
-
->> You choose action (integer):
+You choose action (integer):
 ```
 
 ## Available Environments
