@@ -107,7 +107,7 @@ We provide a complexity estimation for the games on several aspects. **InfoSet N
 
 ## API Cheat Sheet
 ### Dealing Cards
-For limit hold'em: Function `deal_card()` inside `rlcard/games/limitholdem/dealer.py` is called on line 60 of `rlcard/games/limitholdem/game.py` inside `init_game` to deal the cards to the player and AI.
+For limit hold'em: Function `deal_card()` inside [rlcard/games/limitholdem/dealer.py](rlcard/games/limitholdem/dealer.py) is called at line 60 of [rlcard/games/limitholdem/game.py](rlcard/games/limitholdem/game.py) inside `init_game` to deal the cards to the player and AI. On lines 128 through 135 `deal_card()` is called again to deal the table/public cards.
 
 ### How to create an environment
 You can use the the following interface to make an environment. You may optionally specify some configurations with a dictionary.
