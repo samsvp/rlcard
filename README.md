@@ -106,6 +106,9 @@ We provide a complexity estimation for the games on several aspects. **InfoSet N
 | Gin Rummy ([wiki](https://en.wikipedia.org/wiki/Gin_rummy), [baike](https://baike.baidu.com/item/%E9%87%91%E6%8B%89%E7%B1%B3/3471710))                                                         | 10^52           | -                 | -           | gin-rummy       | [doc](docs/games.md#gin-rummy), [example](examples/gin_rummy_random.py)                     |
 
 ## API Cheat Sheet
+### Dealing Cards
+For limit hold'em: Function `deal_card()` inside `rlcard/games/limitholdem/dealer.py` is called on line 60 of `rlcard/games/limitholdem/game.py` inside `init_game` to deal the cards to the player and AI.
+
 ### How to create an environment
 You can use the the following interface to make an environment. You may optionally specify some configurations with a dictionary.
 *   **env = rlcard.make(env_id, config={})**: Make an environment. `env_id` is a string of a environment; `config` is a dictionary that specifies some environment configurations, which are as follows.
