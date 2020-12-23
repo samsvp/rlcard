@@ -139,7 +139,6 @@ class LimitHoldemDQNModel(Model):
         check_point_path = os.path.join(ROOT_PATH, 'limit_holdem_dqn')
         with self.sess.as_default():
             with self.graph.as_default():
-                print(2)
                 saver = tf.train.Saver()
                 saver.restore(self.sess,tf.train.latest_checkpoint(check_point_path))
     

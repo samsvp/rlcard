@@ -270,6 +270,9 @@ class Env(object):
         '''
         raise NotImplementedError
 
+    def decode_action(self, action_id):
+        return self._decode_action(action_id)
+
     def _seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
         self.game.np_random = self.np_random

@@ -5,7 +5,7 @@ from rlcard.utils import print_card
 
 # Make environment
 # Set 'record_action' to True because we need it to print results
-env = rlcard.make('limit-holdem', config={'seed': 0, 'record_action': True})
+env = rlcard.make('limit-holdem', config={'record_action': True})
 human_agent = HumanAgent(env.action_num)
 cfr_agent = models.load('limit-holdem-dqn').agents[0]
 env.set_agents([human_agent, cfr_agent])
