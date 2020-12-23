@@ -189,6 +189,7 @@ class Env(object):
 
         # Loop to play the game
         trajectories[player_id].append(state)
+        print(state)
         while not self.is_over():
             # Agent plays
             if not is_training:

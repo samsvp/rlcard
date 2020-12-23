@@ -1,16 +1,21 @@
 from copy import deepcopy, copy
 import numpy as np
 
+from rlcard.core import Card
 from rlcard.games.limitholdem import Dealer
 from rlcard.games.limitholdem import Player, PlayerStatus
 from rlcard.games.limitholdem import Judger
 from rlcard.games.limitholdem import Round
+
 
 class LimitholdemGame(object):
 
     def __init__(self, allow_step_back=False, num_players=2):
         ''' Initialize the class limitholdem Game
         '''
+        self.suit_list = ['S', 'H', 'D', 'C']
+        self.rank_list = ['A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K']
+
         self.allow_step_back = allow_step_back
         self.np_random = np.random.RandomState()
 
@@ -35,6 +40,23 @@ class LimitholdemGame(object):
         '''
         self.num_players = game_config['game_player_num']
 
+    def deal_card(self, input_msg) -> str:
+        def error(msg: str):
+            print(msg)
+            print("E.g. 10 of hearts: HT; 2 of Spades: S2")
+        card = ""
+        while True:
+            card = input(input_msg)
+            card = card.upper()
+            if len(card) != 2:
+                error("Card must have two characters, containing the suit and rank")
+            if (card[0] in self.suit_list and card[1] in self.rank_list):
+                break
+            else:
+                error(f"First Card char must be in {self.suit_list} and the second one in \
+                        {self.rank_list}")
+        return card
+
     def init_game(self):
         ''' Initialilze the game of Limit Texas Hold'em
 
@@ -58,6 +80,14 @@ class LimitholdemGame(object):
         # Deal cards to each  player to prepare for the first round
         for i in range(2 * self.num_players):
             self.players[i % self.num_players].hand.append(self.dealer.deal_card())
+            
+        print(f"Suits: {self.suit_list}")
+        print(f"Ranks: {self.rank_list}")
+        card_1 = self.deal_card("Select AI card 1: ")
+        card_2 = self.deal_card("Select AI card 2: ")
+        
+        self.players[1].hand[0] = Card(card_1[0], card_1[1])
+        self.players[1].hand[1] = Card(card_2[0], card_2[1])
 
         # Initilize public cards
         self.public_cards = []
@@ -129,10 +159,19 @@ class LimitholdemGame(object):
                 self.public_cards.append(self.dealer.deal_card())
                 self.public_cards.append(self.dealer.deal_card())
                 self.public_cards.append(self.dealer.deal_card())
+                
+                card_1 = self.deal_card("Select public card 1: ")
+                card_2 = self.deal_card("Select public card 2: ")
+                card_3 = self.deal_card("Select public card 3: ")
+                self.public_cards[0] = Card(card_1[0], card_1[1])
+                self.public_cards[1] = Card(card_2[0], card_2[1])
+                self.public_cards[2] = Card(card_3[0], card_3[1])
 
             # For the following rounds, we deal only 1 card
             elif self.round_counter <= 2:
                 self.public_cards.append(self.dealer.deal_card())
+                card = self.deal_card(f"Select public card {len(self.public_cards)}: ")
+                self.public_cards[-1] = Card(card[0], card[1])
 
             # Double the raise amount for the last two rounds
             if self.round_counter == 1:

@@ -5,10 +5,10 @@ from rlcard.utils import print_card
 
 # Make environment
 # Set 'record_action' to True because we need it to print results
-env = rlcard.make('limit-holdem', config={'seed': 0, 'record_action': True})
+env = rlcard.make('limit-holdem', config={'record_action': True})
 human_agent = HumanAgent(env.action_num)
-cfr_agent = models.load('limit-holdem-dqn').agents[0]
-env.set_agents([human_agent, cfr_agent])
+dqn_agent = models.load('limit-holdem-dqn').agents[0]
+env.set_agents([human_agent, dqn_agent])
 
 print(">> Limit Hold'em pre-trained model")
 
@@ -33,7 +33,7 @@ while (True):
             print('>> Player', pair[0], 'chooses', pair[1])
 
     # Let's take a look at what the agent card is
-    print('=============     Random Agent    ============')
+    print('=============     Agent    ============')
     print_card(env.get_perfect_information()['hand_cards'][1])
 
     print('===============     Result     ===============')
