@@ -97,7 +97,6 @@ def main():
     result_font = pygame.font.SysFont(FONT_NAME, RESULT_FONT_SIZE)
 
     # set variables
-    player_hand = env.get_perfect_information()["hand_cards"][0]
     last_player_action = ""
     last_ai_action = ""
 
@@ -116,7 +115,6 @@ def main():
                     last_player_action = ""
                     last_ai_action = ""
                     reset_env()
-                    player_hand = state["raw_obs"]["hand"]
                 if player_id == 1 or finished: pass
                 elif event.key == K_0 or event.key == K_KP0: action = 0
                 elif event.key == K_1 or event.key == K_KP1: action = 1
@@ -141,9 +139,9 @@ def main():
         screen.blit(text, (0.65 * SCREEN_WIDTH, 0.25 * SCREEN_HEIGHT))
 
         # display player cards
-        image_1 = get_card_image(player_hand[0])
+        image_1 = get_card_image(env.get_perfect_information()["hand_cards"][0][0])
         screen.blit(image_1, (0.35 * SCREEN_WIDTH, 0.7 * SCREEN_HEIGHT))
-        image_2 = get_card_image(player_hand[1])
+        image_2 = get_card_image(env.get_perfect_information()["hand_cards"][0][1])
         screen.blit(image_2, (0.5 * SCREEN_WIDTH, 0.7 * SCREEN_HEIGHT))
 
         # display ai cards
